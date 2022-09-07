@@ -1,2 +1,4 @@
-# monodepth_benchmark
- Code for "Deconstructing Monocular Depth Reconstruction: The Design Decisions that Matter" (https://arxiv.org/abs/2208.01489)
+MonoDepth Benchmark
+---
+
+Code will be released soon! (ETA: Sep 19th)

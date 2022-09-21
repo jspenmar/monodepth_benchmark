@@ -1,0 +1,95 @@
+# ##############
+# Project
+# ###############
+models/
+data/
+logs/
+PATHS.yaml
+
+# ##############
+# Compiled source
+# ###############
+*.class
+*.com
+*.dll
+*.exe
+*.m~
+*.o
+*.pyc
+*.so
+__pychache__/
+
+# ###############
+# Git
+# ###############
+git_commits
+git_hash
+
+# ###############
+# Images & stuff
+# ###############
+*tfevents*
+*.avi
+*.bin
+*.csv
+*.fig
+*.html
+*.jpg
+*.mat
+*.mp4
+*.pdf
+*.pkl
+*.png
+.pytest_cache/
+
+# ###############
+# Jupyter
+# ###############
+#*.ipynb
+.ipynb_checkpoints/
+
+# ###############
+# Logs & databases
+# ###############
+*.log
+*.error
+*.out
+*.sql
+*.sqlite
+
+# ###############
+# OS generated & editors
+# ###############
+*.swp
+.AppleDouble
+.DS_Store
+.DS_Store?
+.Spotlight-V100
+.Trashes
+._*
+.db
+.idea/
+.nfs*
+.vscode
+Thumbs
+ehthumbs
+docker_stderror
+
+# ###############
+# Packages - It's better to unpack and commit source
+# ###############
+*.7z
+*.dmg
+*.gz
+*.iso
+*.jar
+*.rar
+*.tar
+*.zip
+
+# ###############
+# PyTorch Checkpoints
+# ###############
+*.pt
+*.pth
+*.ckpt

@@ -1,0 +1,15 @@
+# -----------------------------------------------------------------------------
+dataset:
+  type: 'kitti_lmdb'
+  split: 'eigen_benchmark'
+  mode: 'test'
+  supp_idxs: ~
+  use_depth: False
+  target_stem: 'targets_test'
+# -----------------------------------------------------------------------------
+args:
+  min: 0.001
+  max: 100
+  use_eigen_crop: False
+  metrics: ['benchmark', 'pointcloud']
+# -----------------------------------------------------------------------------

@@ -1,0 +1,144 @@
+# -----------------------------------------------------------------------------
+net:
+  # Depth estimation network.
+  depth:
+    enc_name: 'convnext_base'  # Choose from `timm` encoders.
+    pretrained: True
+    dec_name: 'monodepth'  # Choose from different decoders.
+    out_scales: [ 0, 1, 2, 3 ]
+    use_virtual_stereo: True  # Virtual stereo prediction consistency. From Monodepth.
+    mask_name: 'explainability'  # Reconstruction loss automasking. From SfM-Learner and Klodt.
+    num_ch_mask: 3  # Should match the number of support images.
+    use_stereo_blend: True  # Online virtual stereo blending. From SuperDepth.
+
+  # Autoencoder network for feature learning. From Feat-Depth.
+  autoencoder:
+    enc_name: 'resnet18'
+    pretrained: True
+    dec_name: 'monodepth'
+    out_scales: [ 0, 1, 2, 3 ]
+
+  # Relative pose estimation network. From SfM-Learner.
+  pose:
+    enc_name: 'resnet18'
+    pretrained: True
+# -----------------------------------------------------------------------------
+loss:
+  # NOTE: Each loss must have a `weight` parameter, determining its contribution to the final loss.
+  # Other parameters are based on each losses' kwargs.
+
+  # Image-based reconstruction loss.
+  img_recon:
+    weight: 1
+    loss_name: 'ssim'
+    use_min: True  # Min reduction. From Monodepth2.
+    use_automask: True  # Static pixel automasking. From Monodepth2.
+
+  # Feature-based reconstruction loss. From FeatDepth, Feat-VO-Depth.
+  feat_recon:
+    weight: 0.01
+    loss_name: 'l2'
+    use_min: True
+    use_automask: True
+
+  # Autoencoder image reconstruction. From FeatDepth.
+  autoenc_recon:
+    weight: 1
+    loss_name: 'ssim'
+
+  # Virtual stereo consistency. From Monodepth.
+  stereo_const:
+    weight: 1
+    loss_name: 'l1'
+
+  # Proxy depth regression.
+  depth_regr:
+    weight: 1
+    loss_name: 'log_l1'  # Choose from different losses. From DepthHints, Kuznietsov, DVSO, MonoResMatch.
+    use_automask: True  # Proxy depth automasking. From DepthHints.
+
+   # Disparity smoothness regularization.
+  disp_smooth:
+    weight: 0.001
+    use_edges: True  # Edge-aware weighting. From Monodepth.
+    use_laplacian: False  # Second-order smoothness. From DVSO.
+    use_blur: False  # Blur input disp/images prior to edge detection.
+
+  # First-order feature peakiness regularization. From Feat-Depth.
+  feat_peaky:
+    weight: 0.0001
+    use_edges: True
+
+  # Second-order feature smoothness regularization. From Feat-Depth.
+  feat_smooth:
+    weight: 0.0001
+    use_edges: True
+
+  # Occlusion regularization. From DVSO.
+  disp_occ:
+    weight: 0.01
+
+  # Reconstruction mask BCE regularization. From SfM-Learner.
+  disp_mask:
+    weight: 0.2
+# -----------------------------------------------------------------------------
+dataset:
+  type: 'kitti_lmdb'
+  split: 'eigen_zhou'  # Can also use `eigen_benchmark`.
+  size: [ 640, 192 ]  # Training images resolution.
+  supp_idxs: [ -1, 1, 0 ]  # Support frames for reconstruction loss. Relative to the target frame. 0 for stereo.
+  use_depth: True  # Needed to evaluate performance throughout training.
+  use_hints: True  # Use proxy depth hints for regression losses.
+  use_strong_aug: False  # Enable strong photometric augmentations. Experimental and not thoroughly tested.
+  as_torch: True
+
+  train:
+    mode: 'train'
+    use_aug: True
+
+  val:
+    mode: 'test'
+    use_benchmark: True  # Ablate on the corrected ground-truth!
+    use_aug: False  # And disable augmentations!
+# -----------------------------------------------------------------------------
+loader:
+  # Pin memory is enabled by default.
+
+  batch_size: 8
+  num_workers: 8
+  drop_last: True
+
+  train: { shuffle: True }
+  val: { shuffle: False }
+# -----------------------------------------------------------------------------
+optimizer:
+  type: 'adam'  # Choose from any optimizer available from `timm`.
+  lr: 0.0001
+
+  # Additional parameters based on optimizer type. E.g. momentum, nesterov...
+# -----------------------------------------------------------------------------
+scheduler:
+  type: 'steplr'
+  step_size: 15
+  gamma: 0.1
+
+  # Additional parameters based on scheduler type.
+# -----------------------------------------------------------------------------
+trainer:
+  max_epochs: 30
+  resume_training: True  # Will begin training from scratch if no checkpoints are found. Otherwise resume.
+  load_ckpt: ~  # Optional model with pretrained weights.
+  log_every_n_steps: 100  # Steps between scalar logging.
+  monitor: 'AbsRel'  # Monitor metric to save `best` checkpoint.
+
+  min_depth: 0.1  # Min depth to scale sigmoid disparity.
+  max_depth: 100  # Max depth to scale sigmoid disparity.
+
+  benchmark: True  # Pytorch cudnn benchmark.
+  gradient_clip_val: ~  # Clip by gradient norm.
+  precision: 32  # 16 is causing NaNs...
+  accumulate_grad_batches: ~
+
+  swa: ~  # Enable Stochastic Weight Averaging. Not thoroughly tested.
+  early_stopping: ~ # Enable early model stopping. Not thoroughly tested.
+# -----------------------------------------------------------------------------

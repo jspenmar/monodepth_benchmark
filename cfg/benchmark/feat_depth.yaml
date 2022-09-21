@@ -1,0 +1,38 @@
+# -----------------------------------------------------------------------------
+net:
+  autoencoder:
+    enc_name: 'resnet18'
+    pretrained: True
+    dec_name: 'monodepth'
+    out_scales: [0, 1, 2, 3]
+# -----------------------------------------------------------------------------
+loss:
+  img_recon:
+    use_min: True
+    use_automask: True
+
+  feat_recon:
+    weight: 0.01
+    loss_name: 'l2'
+    use_min: True
+    use_automask: True
+
+  autoenc_recon:
+    weight: 1
+    use_min: False
+    use_automask: False
+
+  feat_peaky:
+    weight: 0.0001
+    use_edges: True
+
+  feat_smooth:
+    weight: 0.0001
+    use_edges: True
+# -----------------------------------------------------------------------------
+dataset:
+  supp_idxs: [ -1, 1, 0 ]
+# -----------------------------------------------------------------------------
+loader:
+  batch_size: 6
+# -----------------------------------------------------------------------------

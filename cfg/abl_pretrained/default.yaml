@@ -1,0 +1,75 @@
+# -----------------------------------------------------------------------------
+net:
+  depth:
+    dec_name: 'monodepth'
+    out_scales: [0, 1, 2, 3]
+    use_virtual_stereo: False
+    mask_name: ~
+    num_ch_mask: ~
+    use_stereo_blend: False
+
+  pose:
+    enc_name: 'resnet18'
+    pretrained: True
+# -----------------------------------------------------------------------------
+loss:
+  img_recon:
+    weight: 1
+    use_min: True
+    use_automask: True
+
+  disp_smooth:
+    weight: 0.001
+    use_edges: True
+    use_laplacian: False
+    use_blur: False
+# -----------------------------------------------------------------------------
+dataset:
+  type: 'kitti_lmdb'
+  split: 'eigen_zhou'
+  size: [ 640, 192 ]
+  supp_idxs: [ -1, 1, 0 ]
+  use_depth: True
+  use_strong_aug: False
+  as_torch: True
+
+  train:
+    mode: 'train'
+    use_aug: True
+
+  val:
+    mode: 'val'
+    use_aug: False
+# -----------------------------------------------------------------------------
+loader:
+  batch_size: 8
+  num_workers: 8
+  drop_last: True
+
+  train: { shuffle: True }
+  val: { shuffle: False }
+# -----------------------------------------------------------------------------
+optimizer:
+  type: 'adam'
+  lr: 0.0001
+# -----------------------------------------------------------------------------
+scheduler:
+  type: 'steplr'
+  step_size: 15
+  gamma: 0.1
+# -----------------------------------------------------------------------------
+trainer:
+  max_epochs: 30
+  resume_training: True
+  load_ckpt: ~
+  log_every_n_steps: 100
+  monitor: 'AbsRel'
+
+  benchmark: True
+  gradient_clip_val: ~
+  precision: 32  # 16 is causing NaNs...
+  accumulate_grad_batches: ~
+
+  swa: ~
+  early_stopping: ~
+# -----------------------------------------------------------------------------

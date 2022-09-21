@@ -1,0 +1,14 @@
+#!/usr/bin bash
+
+commit_files=$(git diff --name-only --staged HEAD)
+
+for file in ${commit_files}; do
+  filename=$(basename -- "$file")
+  ext=${filename##*.}
+
+  if [[ ${ext} == "ipynb" ]]; then
+    python3 .git-hooks/nb_check_empty.py "${file}" ||  { echo "Notebook not empty: ${file}"; exit 1; }
+  fi
+done
+
+exit 0

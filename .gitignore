@@ -1,9 +1,9 @@
 # ##############
 # Project
 # ###############
-models/
-data/
-logs/
+/models/
+/data/
+/logs/
 PATHS.yaml
 
 # ##############

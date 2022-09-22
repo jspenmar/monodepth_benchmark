@@ -19,13 +19,13 @@ This repository contains the code associated with the publication
 > Please check the website for details!
 
 <p align="center">
-<img src="./assets/syns/image_0026.png" alt="image_0026"  width="500"/>
-<img src="./assets/syns/image_0254.png" alt="image_0254"  width="500"/>
-<img src="./assets/syns/image_0698.png" alt="image_0698"  width="500"/>
+<img src="./assets/syns/image_0026.png" alt="image_0026"  width="250"/>
+<img src="./assets/syns/image_0254.png" alt="image_0254"  width="250"/>
+<img src="./assets/syns/image_0698.png" alt="image_0698"  width="250"/>
  
-<img src="./assets/syns/depth_0026.png" alt="depth_0026"  width="500"/>
-<img src="./assets/syns/depth_0254.png" alt="depth_0254"  width="500"/>
-<img src="./assets/syns/depth_0698.png" alt="depth_0698"  width="500"/>
+<img src="./assets/syns/depth_0026.png" alt="depth_0026"  width="250"/>
+<img src="./assets/syns/depth_0254.png" alt="depth_0254"  width="250"/>
+<img src="./assets/syns/depth_0698.png" alt="depth_0698"  width="250"/>
 </p>
 
 ---

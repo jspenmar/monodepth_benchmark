@@ -84,7 +84,6 @@ class HRDepthDecoder(nn.Module):
 
         self.activation = ACT[self.out_act]
 
-        # self.num_ch_dec = [4, 12, 20, 40, 80] if self.mobile_encoder else [16, 32, 64, 128, 256]
         self.num_ch_dec = [ch//2 for ch in self.num_ch_enc[1:]]
         self.num_ch_dec = [self.num_ch_dec[0] // 2] + self.num_ch_dec
 
@@ -142,7 +141,7 @@ class HRDepthDecoder(nn.Module):
                 )
 
         # Create multi-scale outputs
-        channels = [4, 8, 24, 40] if self.mobile_encoder else self.num_ch_dec
+        channels = self.num_ch_dec
         for i, c in enumerate(channels):
             if i in self.out_sc:
                 self.convs[f'outconv_{i}'] = nn.Sequential(conv3x3(c, self.out_ch), self.activation)
@@ -177,7 +176,7 @@ class HRDepthDecoder(nn.Module):
 
             elif idx in self.non_att_idx:
                 conv = [self.convs[f'{row+1}{col-1}_conv_0'], self.convs[f'{row+1}{col-1}_conv_1']]
-                if col != 1 and not self.mobile_encoder:
+                if col != 1:
                     conv.append(self.convs[f'{idx}_down'])
 
                 feat[f'{idx}'] = self.nested_conv(conv, feat[f'{row+1}{col-1}'], xs_skip)

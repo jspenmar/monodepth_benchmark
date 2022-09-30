@@ -7,20 +7,6 @@ REPO_ROOT=/path/to/monodepth_benchmark
 
 ---
 
-## Tests
-
-You can test that all datasets have been loaded/preprocessed correctly using:
-```shell
-cd $REPO_ROOT
-python -m pytest tests/test_data/test_kitti_raw.py
-python -m pytest tests/test_data/test_kitti_raw_lmdb.py
-python -m pytest tests/test_data/test_syns_patches.py
-```
-> **NOTE:** Some tests will fail unless all depth hints and benchmark depths have been processed.
-> Ignore these errors if not needed.
-
----
-
 ## Paths
 Datasets are expected to be in `$REPO_ROOT/data` by default.
 Path management is done in [`src/paths.py`](../../src/paths.py).
@@ -62,6 +48,12 @@ These roots should be listed in preference order, and the first existing dataset
 ---
 
 ## Download
+Before downloading the datasets, create a placeholder directory for each benchmark dataset.
+This will prevent errors from the `devkits` thinking the datasets are unavailable. 
+```shell
+cd $REPO_ROOT
+mkdir -p data/{kitti_raw_sync,kitti_raw_sync_lmdb,kitti_depth_benchmark,syns_patches}
+```
 
 ### Kitti Raw Sync
 This is the base Kitti Raw Sync dataset, including the training images and velodyne LiDAR.
@@ -183,5 +175,19 @@ python ../../api/data/export_kitti_lmdb.py  --use-hints 1 --use-benchmark 1   # 
 
 > **NOTE:** This takes quite a while (a few hours), but the script will check if a given database already exists and skip it.
 > So don't worry if you need to interrupt it and carry on with your life :)
+
+---
+
+## Tests
+
+You can test that all datasets have been loaded/preprocessed correctly using:
+```shell
+cd $REPO_ROOT
+python -m pytest tests/test_data/test_kitti_raw.py
+python -m pytest tests/test_data/test_kitti_raw_lmdb.py
+python -m pytest tests/test_data/test_syns_patches.py
+```
+> **NOTE:** Some tests will fail unless all depth hints and benchmark depths have been processed.
+> Ignore these errors if not needed.
 
 ---

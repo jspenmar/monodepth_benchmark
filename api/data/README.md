@@ -105,7 +105,7 @@ The SYNS-Patches dataset can currently be downloaded from the [MDEC CodaLab webs
 
 ```shell
 cd $REPO_ROOT/data
-../../api/data/download_syns_patches.sh  # Ensure file is executable with `chdmod +x ...`
+../api/data/download_syns_patches.sh  # Ensure file is executable with `chdmod +x ...`
 ```
 
 The expected dataset size, given by `du -shc .` (subdirs omitted for brevity) is

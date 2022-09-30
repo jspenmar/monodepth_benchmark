@@ -45,8 +45,8 @@ class SYNSPatchesDataset(BaseDataset):
 
         if self.use_aug: raise ValueError('SYNS Patches is a testing dataset, no augmentations should be applied.')
 
-        if self.mode == 'test' and (self.use_depth or self.use_edges):
-            raise ValueError('Cannot use ground truth depth when loading the testing split!')
+        if self.mode in {'val', 'test'} and (self.use_depth or self.use_edges):
+            raise ValueError('Cannot use ground truth depth when loading the testing or validation split!')
 
         self.w_full, self.h_full = self.size_full = 1242, 376
         self.split_file, self.items = self.parse_items()

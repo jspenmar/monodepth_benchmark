@@ -31,7 +31,7 @@ dataset:
 ```
 
 > **NOTE:** This is the script required to generate challenge submissions.
-> The config to use is `cfg/export/syns_test.yaml`.
+> The configs to use are `cfg/export/syns_val.yaml and `cfg/export/syns_test.yaml`.
 
 ---
 

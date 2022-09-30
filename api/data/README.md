@@ -105,8 +105,21 @@ The expected dataset size, given by `du -shc ./*` is
 The dowloaded version of `kitti_depth_benchmark` can be deleted after copying it to `kitti_raw_sync`.
 Otherwise, you might be able to use it to submit to the official [Kitti Benchmark](http://www.cvlibs.net/datasets/kitti/eval_depth.php?benchmark=depth_completion).
 
-### SYNS Patches
-> TBA
+### SYNS-Patches
+The SYNS-Patches dataset can currently be downloaded from the [MDEC CodaLab website](https://codalab.lisn.upsaclay.fr/competitions/7811#participate-get_starting_kit).
+
+> NOTE: The ground-truth for both `val` and `test` sets are not publicly released! This is to prevent overfitting from repeated evaluation. 
+> If you wish to evaluate on this dataset, consider participating in the [challenge](https://codalab.lisn.upsaclay.fr/competitions/7811)!
+
+```shell
+cd $REPO_ROOT/data
+../../api/data/download_syns_patches.sh  # Ensure file is executable with `chdmod +x ...`
+```
+
+The expected dataset size, given by `du -shc .` (subdirs omitted for brevity) is
+```text
+974M      total
+```
 
 ---
 
@@ -121,7 +134,7 @@ cp -r api/data/splits_kitti data/kitti_raw_sync/splits
 cp -r api/data/splits_syns data/syns_patches/splits
 api/data/export_targets.sh  # Ensure file is executable with `chdmod +x ...`
 ```
-> **NOTE:** The test set for SYNS-Patches is held out, so only the `val` mode will be exported.
+> **NOTE:** The test/val set for SYNS-Patches are held out.
 > To generate the predictions for your submission please refer to [this section](../eval/README.md#export-predictions)
 
 Expected number of images: 

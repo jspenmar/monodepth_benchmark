@@ -56,8 +56,7 @@ For instructions on using this code, please refer to the respective READMEs:
 - [Evaluating](./api/eval/README.md)
 - [Source Code](./src/README.md)
 
-Make sure to add the root path of this repository to `PYTHONPATH` to ensure the code is found.
-In `bash` this can be done by adding `export PYTHONPATH=/path/to/monodepth_benchmark/:$PYTHONPATH` to your `~/.bashrc` file.
+Please note that this code has been tested using `Python 3.9` and `PyTorch 1.12` and may not work for earlier versions. 
 
 ### PYTHONPATH
 Remember to add the path to the repo to the `PYTHONPATH` in order to run the code.

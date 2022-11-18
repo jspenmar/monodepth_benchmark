@@ -26,8 +26,8 @@ __all__ = [
 
 # CONSTANTS
 # -----------------------------------------------------------------------------
-if 'kitti_raw' not in PATHS:
-    raise KeyError(f"Missing 'kitti_raw' root paths. Got {list(PATHS)}.")
+# if 'kitti_raw' not in PATHS:
+#     raise KeyError(f"Missing 'kitti_raw' root paths. Got {list(PATHS)}.")
 
 SEQS: tuple[str, ...] = ('2011_09_26', '2011_09_28', '2011_09_29', '2011_09_30', '2011_10_03')
 OXTS: tuple[str, ...] = (

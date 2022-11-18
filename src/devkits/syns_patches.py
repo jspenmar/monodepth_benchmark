@@ -17,8 +17,8 @@ __all__ = [
 
 # CONSTANTS
 # -----------------------------------------------------------------------------
-if 'syns_patches' not in PATHS:
-    raise KeyError(f"Missing 'syns_patches' root paths. Got {list(PATHS)}.")
+# if 'syns_patches' not in PATHS:
+#     raise KeyError(f"Missing 'syns_patches' root paths. Got {list(PATHS)}.")
 
 SUBDIRS = [
     'images', 'masks', 'depths', 'edges',

@@ -14,8 +14,8 @@ __all__ = [
 
 # CONSTANTS
 # -----------------------------------------------------------------------------
-if 'kitti_raw_lmdb' not in PATHS:
-    raise KeyError(f"Missing 'kitti_raw_lmdb' root paths. Got {list(PATHS)}.")
+# if 'kitti_raw_lmdb' not in PATHS:
+#     raise KeyError(f"Missing 'kitti_raw_lmdb' root paths. Got {list(PATHS)}.")
 # -----------------------------------------------------------------------------
 
 

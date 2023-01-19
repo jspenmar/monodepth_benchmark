@@ -12,10 +12,10 @@ This repository contains the code associated with the publication
 > and 
 > [Richard Bowden](http://personal.ee.surrey.ac.uk/Personal/R.Bowden/)
 >
-> [ArXiv 2022](https://arxiv.org/abs/2208.01489) (Under Review)
+> [TMLR 2022](https://openreview.net/forum?id=GFK1FheE7F)
 
-> We are currently also organizing a monocular depth prediction challenge around the proposed SYNS-Patches dataset! 
-> This challenge will take place at [MDEC@WACV2023](https://jspenmar.github.io/MDEC/).
+> We are currently also organizing the second edition of the Monocular Depth Estimation Challenge around the proposed SYNS-Patches dataset! 
+> This challenge will take place at [MDEC@CVPR2023](https://jspenmar.github.io/MDEC/).
 > Please check the website for details!
 
 <p align="center">
